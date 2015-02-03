@@ -25,10 +25,10 @@ class Chef
 
     attribute(:project_name, kind_of: String, default: lazy { name.split('::').last }) # This should validate for bad chars
     attribute('', template: true, default_source: 'project.properties.erb')
-    attribute(:ssh_authentication, equal_to: %{privateKey password}, default: 'privateKey')
+    attribute(:ssh_authentication, equal_to: %W{privateKey password}, default: 'privateKey')
     attribute(:ssh_key, kind_of: String, default: lazy { ::File.join(parent.path, '.ssh', 'id_rsa') })
-    attribute(:executor, equal_to: %{jsch-ssh stub}, default: 'jsch-ssh') # script-exec/copy not supported yet
-    attribute(:file_copier, equal_to: %{jsch-scp stub}, default: 'jsch-scp')
+    attribute(:executor, equal_to: %W{jsch-ssh stub}, default: 'jsch-ssh') # script-exec/copy not supported yet
+    attribute(:file_copier, equal_to: %W{jsch-scp stub}, default: 'jsch-scp')
 
     def project_path
       ::File.join(parent.path, 'projects', project_name)
